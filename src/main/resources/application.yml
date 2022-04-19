@@ -1,0 +1,10 @@
+server:
+  port: 8088
+
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@127.0.0.1:1521:XE
+    username: sb
+    password: sb
+    driver-class-name: oracle.jdbc.OracleDriver
+ 
