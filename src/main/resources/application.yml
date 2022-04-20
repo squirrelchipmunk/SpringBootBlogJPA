@@ -1,10 +1,35 @@
 server:
   port: 8088
-
+  servlet:
+    context-path: /blog
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+    
 spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+      
+
   datasource:
     url: jdbc:oracle:thin:@127.0.0.1:1521:XE
     username: sb
     password: sb
     driver-class-name: oracle.jdbc.OracleDriver
- 
+    
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: create
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      use-new-id-generator-mappings: false
+    show-sql: true
+    
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
