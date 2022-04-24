@@ -1,6 +1,7 @@
 package com.exam.blog.model;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -37,23 +39,27 @@ public class Board {
 	private User user; // db는 오브젝트를 저장할 수 없고 FK 사용.
 						// jpa orm에서는 가능.
 
+	@OneToMany(mappedBy = "board") // mappedBy 연관관계의 주인이 아니다 >> DB에 컬럼을 만들지 않는다
+	private List<Reply> reply;
+
 	@CreationTimestamp
-	private Timestamp createDate; 
+	private Timestamp createDate;
+
 	
 	
 	/* 생성자 게터 세터 */
-
 	public Board() {
 		super();
 	}
 
-	public Board(int id, String title, String content, int count, User user, Timestamp createDate) {
+	public Board(int id, String title, String content, int count, User user, List<Reply> reply, Timestamp createDate) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.count = count;
 		this.user = user;
+		this.reply = reply;
 		this.createDate = createDate;
 	}
 
@@ -97,6 +103,14 @@ public class Board {
 		this.user = user;
 	}
 
+	public List<Reply> getReply() {
+		return reply;
+	}
+
+	public void setReply(List<Reply> reply) {
+		this.reply = reply;
+	}
+
 	public Timestamp getCreateDate() {
 		return createDate;
 	}
@@ -108,7 +122,7 @@ public class Board {
 	@Override
 	public String toString() {
 		return "Board [id=" + id + ", title=" + title + ", content=" + content + ", count=" + count + ", user=" + user
-				+ ", createDate=" + createDate + "]";
+				+ ", reply=" + reply + ", createDate=" + createDate + "]";
 	}
 
 }
