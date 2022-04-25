@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,12 +35,15 @@ public class Board {
 	@ColumnDefault("0")
 	private int count;
 
-	@ManyToOne // user 1 : board N 관계
+	@ManyToOne(fetch = FetchType.EAGER) 
 	@JoinColumn(name = "userId") // FK 필드 : userId
 	private User user; // db는 오브젝트를 저장할 수 없고 FK 사용.
 						// jpa orm에서는 가능.
-
-	@OneToMany(mappedBy = "board") // mappedBy 연관관계의 주인이 아니다 >> DB에 컬럼을 만들지 않는다
+	
+														// mappedBy = 필드명     (Reply 클래스의 필드명)
+														// mappedBy 연관관계의 주인이 아니다 >> DB에 컬럼을 만들지 않는다
+														// fetch = FetchType.LAZY  : 필요하면 가져온다
+	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER) 
 	private List<Reply> reply;
 
 	@CreationTimestamp
