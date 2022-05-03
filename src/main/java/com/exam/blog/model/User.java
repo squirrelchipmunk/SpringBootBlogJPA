@@ -33,7 +33,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO) // 프로젝트에서 연결된 DB의 넘버링 전략 >> 오라클 : 시퀀스, mysql : auto increment
 	private int id; // 시퀀스 
 
-	@Column(nullable = false, length = 40)
+	@Column(nullable = false, length = 40, unique=true)
 	private String userName; // id
 
 	@Column(nullable = false, length = 200)
