@@ -12,20 +12,21 @@
 	<c:import url="/WEB-INF/views/layout/header.jsp"></c:import>
 
 	<div class="container">
-		<form action="/action_page.php">
+		<form>
 			<div class="form-group">
 				<label for="userName">User Name:</label> <input type="text" class="form-control" placeholder="Enter email" id="userName">
 			</div>
 			<div class="form-group">
-				<label for="email">Email address:</label> <input type="email" class="form-control" placeholder="Enter email" id="email">
-			</div> 
-			<div class="form-group">
 				<label for="password">Password:</label> <input type="password" class="form-control" placeholder="Enter password" id="password">
 			</div>
-			<button type="submit" class="btn btn-primary">회원가입</button>
+			<div class="form-group">
+				<label for="email">Email address:</label> <input type="email" class="form-control" placeholder="Enter email" id="email">
+			</div> 
 		</form>
+		<button id="btn-save" type="button" class="btn btn-primary">회원가입</button>
 	</div>
 	
 	<c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>
+	<script src="${pageContext.request.contextPath}/js/user.js"></script>
 </body>
 </html>
