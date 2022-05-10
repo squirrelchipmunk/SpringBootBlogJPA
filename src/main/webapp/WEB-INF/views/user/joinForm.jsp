@@ -27,6 +27,6 @@
 	</div>
 	
 	<c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>
-	<script src="${pageContext.request.contextPath}/js/user.js"></script>
+	<script src="/js/user.js"></script>
 </body>
 </html>

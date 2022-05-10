@@ -19,6 +19,11 @@ public class UserApiController {
 	@Autowired
 	private UserService userService;
 	
+	/*
+	@Autowired
+	private HttpSeession session;
+	*/
+	
 	@PostMapping("/api/user")
 	public ResponseDto<Integer> save(@RequestBody User user) {
 		System.out.println("UserApiController");
@@ -28,6 +33,7 @@ public class UserApiController {
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
 	
+	/*
 	@PostMapping("/api/user/login")
 	public ResponseDto<Integer> login(@RequestBody User user, HttpSession session){
 		System.out.println("UserApiController : login()");
@@ -37,4 +43,7 @@ public class UserApiController {
 		}
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
+	*/
+	
+	
 }

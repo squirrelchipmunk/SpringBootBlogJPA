@@ -20,14 +20,14 @@ let index = {
 		$.ajax({
 			//회원가입 요청
 			type: 'post',
-			url: '/blog/api/user',
+			url: '/api/user',
 			data: JSON.stringify(data),
 			contentType: 'application/json; charset=utf-8', // body 데이터 타입(MIME)
 			dataType:'json' //응답 데이터 json > 자바스크립트 객체로 변경. default json이므로 생략 가능!
 		}).done(function(resp){
 			//성공 시 실행
 			alert('회원가입 완료');
-			location.href='/blog';
+			location.href='/';
 		}).fail(function(err){
 			//실패 시 실행
 			alert(JSON.stringify(err));
@@ -44,13 +44,13 @@ let index = {
 		
 		$.ajax({
 			type: 'post',
-			url: '/blog/api/user/login',
+			url: '/api/user/login',
 			data: JSON.stringify(data),
 			contentType: 'application/json; charset=utf-8',
 			dataType:'json'
 		}).done(function(resp){
 			alert('로그인이 완료되었습니다.');
-			location.href='/blog';
+			location.href='/';
 		}).fail(function(err){
 			alert(JSON.stringify(err));
 		});
