@@ -1,9 +1,8 @@
 package com.exam.blog.service;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.exam.blog.model.User;
 import com.exam.blog.repository.UserRepository;
@@ -16,9 +15,14 @@ public class UserService {
 	private UserRepository userRepository;
 	
 	// 전체가 트랜잭션으로 묶여 원자성 유지됨. 프록시 객체가 생성되어 자동으로 commit 또는 rollback. isolation 옵션으로 격리 수준 설정 가능.
-	@Transactional 
+	@Transactional
 	public void 회원가입(User user) {
 		userRepository.save(user);
+	}
+
+	@Transactional(readOnly = true) // select 할 때 트랜잭션 시작, 서비스 종료시 트랜잭션 종료 ( 정합성 유지 )
+	public User 로그인(User user) {
+		return userRepository.login(user.getUserName(), user.getPassword());
 	}
 }
 
@@ -49,7 +53,7 @@ public class UserService {
 //controller : data(rest) or html
 
 //(6)영속성 컨텍스트 종료 : Lazy Load >>프록시 객체를 통해 실제 객체를 얻을 수 있음.
-// └ yml >> spring : jap : open-in-view : true 설정으로 영속성을 컨트롤러까지 가져감.
+// └ yml >> spring : jpa : open-in-view : true 설정으로 영속성을 컨트롤러까지 가져감.
 
 
 // response

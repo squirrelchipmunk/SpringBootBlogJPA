@@ -1,5 +1,7 @@
 package com.exam.blog.controller.api;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +25,16 @@ public class UserApiController {
 		//System.out.println(user);
 		user.setRole(RoleType.USER);
 		userService.회원가입(user); // 1 성공 -1 실패
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+	}
+	
+	@PostMapping("/api/user/login")
+	public ResponseDto<Integer> login(@RequestBody User user, HttpSession session){
+		System.out.println("UserApiController : login()");
+		User principal = userService.로그인(user); // principal : 접근 주체
+		if(principal != null) {
+			session.setAttribute("principal", principal);
+		}
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
 }
