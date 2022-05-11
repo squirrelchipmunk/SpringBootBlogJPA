@@ -3,13 +3,13 @@ let index = {
 		$('#btn-save').on('click',()=>{  // ()=>{} this를 바인딩하기 위해서 사용
 			this.save();
 		});
-		$('#btn-login').on('click',()=>{  
+		/*$('#btn-login').on('click',()=>{  
 			this.login();
-		});
+		});*/
 	},
 	save:function() {
 		let data = {
-			userName:$('#userName').val(),
+			username:$('#username').val(),
 			password:$('#password').val(),
 			email:$('#email').val()
 		};
@@ -20,7 +20,7 @@ let index = {
 		$.ajax({
 			//회원가입 요청
 			type: 'post',
-			url: '/api/user',
+			url: '/auth/joinProc',
 			data: JSON.stringify(data),
 			contentType: 'application/json; charset=utf-8', // body 데이터 타입(MIME)
 			dataType:'json' //응답 데이터 json > 자바스크립트 객체로 변경. default json이므로 생략 가능!
@@ -32,12 +32,11 @@ let index = {
 			//실패 시 실행
 			alert(JSON.stringify(err));
 		}); // ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert 요청
-	},
-	
+	}/*,
 	
 	login:function() {
 		let data = {
-			userName:$('#userName').val(),
+			username:$('#username').val(),
 			password:$('#password').val()
 		};
 	
@@ -54,7 +53,8 @@ let index = {
 		}).fail(function(err){
 			alert(JSON.stringify(err));
 		});
-	}
+	}*/
+	
 }
 
 index.init();

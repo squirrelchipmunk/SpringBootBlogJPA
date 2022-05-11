@@ -30,10 +30,10 @@ public class DummyControllerTest {
 	private UserRepository userRepository;
 	
 	@PostMapping("/dummy/join")
-	//public String join(String userName, String password, String email) { // key = value 형태   (form 태그)
+	//public String join(String username, String password, String email) { // key = value 형태   (form 태그)
 	public String join(User user) {
 		System.out.println("id: "+user.getId());
-		System.out.println("userName: "+user.getUserName());
+		System.out.println("username: "+user.getUsername());
 		System.out.println("password: "+user.getPassword());
 		System.out.println("email: "+user.getEmail());
 		System.out.println("role: "+user.getRole());

@@ -34,7 +34,7 @@ public class User {
 	private int id; // 시퀀스 
 
 	@Column(nullable = false, length = 40, unique=true)
-	private String userName; // id
+	private String username; // id
 
 	@Column(nullable = false, length = 200)
 	private String password;

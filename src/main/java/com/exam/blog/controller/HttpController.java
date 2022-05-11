@@ -16,14 +16,14 @@ public class HttpController {
 	// 브라우저 요청은 get만 가능
 	@GetMapping("/http/get")
 	public String getTest(@ModelAttribute Member m) { // MessageConverter
-		return "get 요청 "+m.getId()+", "+m.getUserName()+", "+m.getPassword()+", "+m.getEmail();
+		return "get 요청 "+m.getId()+", "+m.getUsername()+", "+m.getPassword()+", "+m.getEmail();
 	}
 
 	
 	// 나머지는 postman 프로그램에서 확인
 	@PostMapping("/http/post")		// raw > text/plain  |  application/json
 	public String postTest(@RequestBody Member m) {
-		return "post 요청"+m.getId()+", "+m.getUserName()+", "+m.getPassword()+", "+m.getEmail();
+		return "post 요청"+m.getId()+", "+m.getUsername()+", "+m.getPassword()+", "+m.getEmail();
 	}
 
 	@PutMapping("/http/put")
