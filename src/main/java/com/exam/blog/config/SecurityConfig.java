@@ -1,12 +1,16 @@
 package com.exam.blog.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.exam.blog.config.auth.PrincipalDetailService;
 
 // 빈(Bean) 등록 : 스프링 컨테이너에서 객체를 관리할 수 있게 하는 것
 
@@ -16,10 +20,20 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true) // 특정 주소로 접근 시 권한/인증을 미리 체크
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
+	@Autowired
+	private PrincipalDetailService principalDetailService;
+	
 	@Bean // Spring이 관리
-	public BCryptPasswordEncoder endodePWD() {
+	public BCryptPasswordEncoder encodePWD() {
 		return new BCryptPasswordEncoder();
 	}
+	
+	// 시큐리티가 대신 로그인 해줄 때, 가로챈 password가 뭐로 해시되었는지 알아야 함!
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(principalDetailService).passwordEncoder(encodePWD());
+	}
+	
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -32,7 +46,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.authenticated()	// 인증 필요
 			.and()
 				.formLogin()
-				.loginPage("/auth/loginForm");
+				.loginPage("/auth/loginForm") // 인증이 필요한 모든 페이지에 대한 요청은 로그인 폼으로.
+				.loginProcessingUrl("/auth/loginProc") // 스프링 시큐리티가 해당 주소 요청을 가로챈다 >> 대신 로그인
+				.defaultSuccessUrl("/") // 요청이 완료되면
+				.failureUrl("/fail") // 실패하면
+				;
 	}
 }
 

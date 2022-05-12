@@ -1,7 +1,8 @@
 package com.exam.blog.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import com.exam.blog.model.User;
 
@@ -10,7 +11,8 @@ import com.exam.blog.model.User;
 // @Repository 생략
 public interface UserRepository extends JpaRepository<User, Integer>{ // user를 관리하는 repository이며 pk가 int
 	
-	 
+	// Select * from user where username = 1?;
+	Optional<User> findByUsername(String username);
 }
 
 

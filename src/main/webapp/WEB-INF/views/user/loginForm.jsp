@@ -12,16 +12,12 @@
 	<c:import url="/WEB-INF/views/layout/header.jsp"></c:import>
 
 	<div class="container">
-		<form action="#" method="post">
+		<form action="/auth/loginProc" method="post">
 			<div class="form-group">
 				<label for="username">User Name:</label> <input type="text" name="username" class="form-control" placeholder="Enter email" id="username">
 			</div>
 			<div class="form-group">
 				<label for="password">Password:</label> <input type="password" name="password" class="form-control" placeholder="Enter password" id="password">
-			</div>
-			<div class="form-group form-check">
-				<label class="form-check-label"> <input name="remember" class="form-check-input" type="checkbox"> Remember me
-				</label>
 			</div>
 			<button id="btn-login" type="submit" class="btn btn-primary">로그인</button>
 		</form>
