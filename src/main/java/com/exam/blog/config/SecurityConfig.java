@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-			.csrf().disable() // csrf 토큰 비활성화 (테스트 시 사용하면 좋음)
+			.csrf().disable() // csrf 토큰 비활성화 (테스트 시 사용하면 좋음)  >>  요청 시 csrf 토큰이 없으면 차단됨. 테스트 후에 삭제
 			.authorizeRequests()
 				.antMatchers("/","/auth/**", "/js/**", "/css/**", "/image/**") // 해당 경로는
 				.permitAll()	// 허용
@@ -35,3 +35,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.loginPage("/auth/loginForm");
 	}
 }
+
+/* csrf, xss
+
+csrf : 사이트 간 요청 위조 > csrf 토큰 세션을 만들고 클라이언트에서 요청 시 같이 보내도록 함.
+xss : 사이트 간 스크립팅 > lucy(필터) 라이브러리  사용 
+
+*/
