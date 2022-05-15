@@ -11,7 +11,7 @@
 	<br>
 	<div class="jumbotron text-center" style="margin-bottom: 0">
 		<p>🤗Spring Boot with JPA</p>
-		<p>🥰Created by squirrel</p>
+		<p>🐿Created by squirrel</p>
 	</div>
 
 </body>
