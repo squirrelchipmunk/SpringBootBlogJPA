@@ -8,8 +8,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
 </head>
 <body>
 
@@ -24,14 +23,13 @@
 				<label for="content">Content:</label>
 				<textarea class="form-control summernote" rows="5" id="content"></textarea>
 			</div>
-			<button id="btn-save" type="submit" class="btn btn-primary">글쓰기 완료</button>
+			<button id="btn-save" type="button" class="btn btn-primary">글쓰기 완료</button>
 		</form>
 	</div>
 	<script>
-      $('#summernote').summernote({
-        placeholder: 'Hello Bootstrap 4',
+      $('.summernote').summernote({
         tabsize: 2,
-        height: 100
+        height: 300
       });
     </script>
 	<script src="/js/board.js"></script>

@@ -9,10 +9,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.exam.blog.model.User;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 // 스프링 시큐리티가 로그인 요청을 가로채서 로그인 진행 >>
 // UserDetails 타입 오브젝트를 스프링 시큐리티의 고유한 세션 저장소에 저장
 @AllArgsConstructor
+@Getter
 public class PrincipalDetail implements UserDetails{
 
 	private User user; // 콤포지션 (객체를 품고 있는 것)

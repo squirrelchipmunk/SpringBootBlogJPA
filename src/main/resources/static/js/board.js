@@ -10,7 +10,7 @@ let index = {
 	save:function() {
 		let data = {
 			title:$('#title').val(),
-			content:$('#conten').val()
+			content:$('#content').val()
 		};
 	
 		//console.log(data);

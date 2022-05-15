@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,33 +15,15 @@
 	<c:import url="/WEB-INF/views/layout/header.jsp"></c:import>
 
 	<div class="container">
-		<div class="card m-2">
-			<div class="card-body">
-				<h4 class="card-title">제목 적는 부분</h4>
-				<a href="#" class="btn btn-primary">상세보기</a>
+	
+		<c:forEach items="${boards}" var="board">
+			<div class="card m-2">
+				<div class="card-body">
+					<h4 class="card-title">${board.title}</h4>
+					<a href="#" class="btn btn-primary">상세보기</a>
+				</div>
 			</div>
-		</div>
-		
-		<div class="card m-2">
-			<div class="card-body">
-				<h4 class="card-title">제목 적는 부분</h4>
-				<a href="#" class="btn btn-primary">상세보기</a>
-			</div>
-		</div>
-		
-		<div class="card m-2">
-			<div class="card-body">
-				<h4 class="card-title">제목 적는 부분</h4>
-				<a href="#" class="btn btn-primary">상세보기</a>
-			</div>
-		</div>
-		
-		<div class="card m-2">
-			<div class="card-body">
-				<h4 class="card-title">제목 적는 부분</h4>
-				<a href="#" class="btn btn-primary">상세보기</a>
-			</div>
-		</div>
+		</c:forEach>
 	</div>
 
 	<c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>

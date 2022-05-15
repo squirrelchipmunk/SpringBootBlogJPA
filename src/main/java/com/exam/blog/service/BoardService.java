@@ -1,11 +1,14 @@
 package com.exam.blog.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.exam.blog.repository.BoardRepository;
 import com.exam.blog.model.Board;
+import com.exam.blog.model.User;
+import com.exam.blog.repository.BoardRepository;
 
 // 스프링이 컴포넌트 스캔을 통해서 Bean에 등록해줌. >> IoC
 @Service 
@@ -16,8 +19,14 @@ public class BoardService {
 	
 	// 전체가 트랜잭션으로 묶여 원자성 유지됨. 프록시 객체가 생성되어 자동으로 commit 또는 rollback. isolation 옵션으로 격리 수준 설정 가능.
 	@Transactional
-	public void 글쓰기(Board board) {
+	public void 글쓰기(Board board, User user) { // title, content
+		board.setCount(0);
+		board.setUser(user);
 		boardRepository.save(board);
+	}
+
+	public List<Board> 글목록() {
+		return boardRepository.findAll();
 	}
 
 	/*
