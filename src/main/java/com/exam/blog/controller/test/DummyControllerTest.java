@@ -81,12 +81,12 @@ public class DummyControllerTest {
 	
 	//페이지 당 2개씩 페이징
 	@GetMapping("/dummy/user")
-	public List<User> pageList(@PageableDefault(size=2, sort="id", direction = Sort.Direction.DESC) Pageable pageable) {
+	public Page<User> pageList(@PageableDefault(size=2, sort="id", direction = Sort.Direction.DESC) Pageable pageable) {
 		Page<User> paging = userRepository.findAll(pageable); 
 		List<User> users = paging.getContent(); // getContent() 페이징 정보를 생략하고 반환 타입이 Page가 아니라 객체 리스트
 		
 		// Page의 isLast() isFirst() 등으로 페이징 처리 가능
-		return users;
+		return paging;
 	}
 	
 	@Transactional // 트랜잭션이 실행되고 메서드가 종료될 때 자동 commit
