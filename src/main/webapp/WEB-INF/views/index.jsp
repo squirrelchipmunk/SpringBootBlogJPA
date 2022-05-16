@@ -16,7 +16,7 @@
 
 	<div class="container">
 	
-		<c:forEach items="${boards}" var="board">
+		<c:forEach items="${boards.content}" var="board">
 			<div class="card m-2">
 				<div class="card-body">
 					<h4 class="card-title">${board.title}</h4>
@@ -24,6 +24,19 @@
 				</div>
 			</div>
 		</c:forEach>
+
+		<ul class="pagination justify-content-center"><!-- -start -center -end -->
+			
+			<c:if test="${not boards.first}">
+				<li class="page-item"><a class="page-link" href="?page=${boards.number-1}">◀</a></li>
+			</c:if>
+			<li class="page-item"><a class="page-link" href="#">1</a></li>
+			<li class="page-item"><a class="page-link" href="#">2</a></li>
+			<li class="page-item"><a class="page-link" href="#">3</a></li>
+			<c:if test="${not boards.last}">
+				<li class="page-item"><a class="page-link" href="?page=${boards.number+1}">▶</a></li>
+			</c:if>
+		</ul>
 	</div>
 
 	<c:import url="/WEB-INF/views/layout/footer.jsp"></c:import>
