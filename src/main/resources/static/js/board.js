@@ -3,9 +3,9 @@ let index = {
 		$('#btn-save').on('click',()=>{  // ()=>{} this를 바인딩하기 위해서 사용
 			this.save();
 		});
-		/*$('#btn-login').on('click',()=>{  
-			this.login();
-		});*/
+		$('#btn-delete').on('click',()=>{  // ()=>{} this를 바인딩하기 위해서 사용
+			this.deleteById();
+		});
 	},
 	save:function() {
 		let data = {
@@ -31,6 +31,22 @@ let index = {
 			//실패 시 실행
 			alert(JSON.stringify(err));
 		}); // ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert 요청
+	},
+	
+	
+	deleteById:function() {
+		var id = $('#id').text();
+		$.ajax({
+			type: 'delete',
+			url: '/api/board/'+id,
+			dataType:'json' //응답 데이터 json > 자바스크립트 객체로 변경. default json이므로 생략 가능!
+		}).done(function(resp){
+			alert('삭제 완료');
+			location.href='/';
+		}).fail(function(err){
+			
+			alert(JSON.stringify(err));
+		}); 
 	}
 }
 
