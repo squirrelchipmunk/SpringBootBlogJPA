@@ -6,6 +6,9 @@ let index = {
 		$('#btn-delete').on('click',()=>{  // ()=>{} this를 바인딩하기 위해서 사용
 			this.deleteById();
 		});
+		$('#btn-update').on('click',()=>{  // ()=>{} this를 바인딩하기 위해서 사용
+			this.update();
+		});
 	},
 	save:function() {
 		let data = {
@@ -35,7 +38,7 @@ let index = {
 	
 	
 	deleteById:function() {
-		var id = $('#id').text();
+		let id = $('#id').text();
 		$.ajax({
 			type: 'delete',
 			url: '/api/board/'+id,
@@ -47,6 +50,26 @@ let index = {
 			
 			alert(JSON.stringify(err));
 		}); 
+	},
+	
+	update:function() {
+		let id = $('#id').val();
+		let data = {
+			title:$('#title').val(),
+			content:$('#content').val()
+		};
+		$.ajax({
+			type: 'put',
+			url: '/api/board/'+id,
+			data: JSON.stringify(data),
+			contentType: 'application/json; charset=utf-8', 
+			dataType:'json'
+		}).done(function(resp){
+			alert('수정 완료');
+			location.href='/';
+		}).fail(function(err){
+			alert(JSON.stringify(err));
+		});
 	}
 }
 

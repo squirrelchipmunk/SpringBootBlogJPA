@@ -15,14 +15,15 @@
 	<c:import url="/WEB-INF/views/layout/header.jsp"></c:import>
 
 	<div class="container">
-		<form action="" method="post">
+		<form>
+			<input type="hidden" id="id" value="${board.id}">
 			<div class="form-group">
-				<input type="text" name="username" class="form-control" placeholder="Enter title" id="title">
+				<input type="text" name="username" class="form-control" value="${board.title}" id="title">
 			</div>
 			<div class="form-group">
-				<textarea class="form-control summernote" rows="5" id="content"></textarea>
+				<textarea class="form-control summernote" rows="5" id="content">${board.content}</textarea>
 			</div>
-			<button id="btn-save" type="button" class="btn btn-primary">글쓰기 완료</button>
+			<button id="btn-update" type="button" class="btn btn-primary">수정 완료</button>
 		</form>
 	</div>
 	<script>

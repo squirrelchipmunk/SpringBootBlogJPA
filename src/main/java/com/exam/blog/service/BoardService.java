@@ -43,6 +43,18 @@ public class BoardService {
 		boardRepository.deleteById(id);
 	}
 
+	@Transactional
+	public void 글수정하기(int id, Board requestBoard) {
+		Board board = boardRepository.findById(id) // 영속화 시키기
+				.orElseThrow( ()-> {
+					return new IllegalArgumentException("글 찾기 실패");
+				});
+		
+		board.setTitle(requestBoard.getTitle());
+		board.setContent(requestBoard.getContent());
+		// 해당 함수 종료 시 (service 종료) 트랜잭션이 종료 > 더티체킹 - 자동 업데이트(db flush)
+	}
+
 	/*
 	@Transactional(readOnly = true) // select 할 때 트랜잭션 시작, 서비스 종료시 트랜잭션 종료 ( 정합성 유지 )
 	public User 로그인(User user) {
