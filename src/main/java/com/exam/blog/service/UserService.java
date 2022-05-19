@@ -27,6 +27,24 @@ public class UserService {
 		userRepository.save(user);
 	}
 
+	@Transactional
+	public void 회원수정(User user) { // id , password, email
+		// 수정 : JPA 영속성 컨텍스트에 User 객체를 영속화시키고 영속화된 객체를 수정
+		
+		//  1. 영속화시키기 위해 먼저 select
+		System.out.println(user);
+		User persistance = userRepository.findById(user.getId()).orElseThrow(()->{
+			return new IllegalArgumentException("회원 찾기 실패!!");
+		});
+		
+		String rawPassword = user.getPassword();
+		String encPassword = encoder.encode(rawPassword);
+		persistance.setPassword(encPassword);
+		persistance.setEmail(user.getEmail());
+		
+		// 회원수정 함수 종료 >> 서비스 종료 >> 트랜잭션 종료 >> 자동 commit : 영속화된 객체의 변화가 감지되면 (더티체킹) DB에 UPDATE문 날림
+	}
+
 	/*
 	@Transactional(readOnly = true) // select 할 때 트랜잭션 시작, 서비스 종료시 트랜잭션 종료 ( 정합성 유지 )
 	public User 로그인(User user) {

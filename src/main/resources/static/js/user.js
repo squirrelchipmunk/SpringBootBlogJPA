@@ -3,9 +3,9 @@ let index = {
 		$('#btn-save').on('click',()=>{  // ()=>{} this를 바인딩하기 위해서 사용
 			this.save();
 		});
-		/*$('#btn-login').on('click',()=>{  
-			this.login();
-		});*/
+		$('#btn-update').on('click',()=>{  
+			this.update();
+		});
 	},
 	save:function() {
 		let data = {
@@ -32,28 +32,28 @@ let index = {
 			//실패 시 실행
 			alert(JSON.stringify(err));
 		}); // ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert 요청
-	}/*,
+	},
 	
-	login:function() {
+	update:function() {
 		let data = {
-			username:$('#username').val(),
-			password:$('#password').val()
+			id:$('#id').val(),
+			password:$('#password').val(),
+			email:$('#email').val()
 		};
 	
-		
 		$.ajax({
-			type: 'post',
-			url: '/api/user/login',
+			type: 'put',
+			url: '/user',
 			data: JSON.stringify(data),
-			contentType: 'application/json; charset=utf-8',
-			dataType:'json'
+			contentType: 'application/json; charset=utf-8', // body 데이터 타입(MIME)
+			dataType:'json' 
 		}).done(function(resp){
-			alert('로그인이 완료되었습니다.');
+			alert('회원수정 완료');
 			location.href='/';
 		}).fail(function(err){
 			alert(JSON.stringify(err));
-		});
-	}*/
+		}); 
+	}
 	
 }
 
