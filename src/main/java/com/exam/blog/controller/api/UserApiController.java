@@ -29,7 +29,6 @@ public class UserApiController {
 	public ResponseDto<Integer> save(@RequestBody User user) {
 		System.out.println("UserApiController");
 		
-		user.setRole(RoleType.USER);
 		userService.회원가입(user); // 1 성공 -1 실패
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}

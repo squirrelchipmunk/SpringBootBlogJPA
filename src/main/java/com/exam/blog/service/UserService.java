@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.exam.blog.model.RoleType;
 import com.exam.blog.model.User;
 import com.exam.blog.repository.UserRepository;
 
@@ -28,6 +29,7 @@ public class UserService {
 		String rawPassword = user.getPassword();
 		String encPassword = encoder.encode(rawPassword);
 		user.setPassword(encPassword);
+		user.setRole(RoleType.USER);
 		userRepository.save(user);
 	}
 
@@ -40,13 +42,24 @@ public class UserService {
 			return new IllegalArgumentException("회원 찾기 실패!!");
 		});
 		
-		String rawPassword = user.getPassword();
-		String encPassword = encoder.encode(rawPassword);
-		persistance.setPassword(encPassword);
-		persistance.setEmail(user.getEmail());
+		//유효성 체크
+		if(persistance.getOauth() == null || persistance.getOauth().equals("")) { // oauth가 kakao인 사람은 수정 불가.
+			String rawPassword = user.getPassword();
+			String encPassword = encoder.encode(rawPassword);
+			persistance.setPassword(encPassword);
+			persistance.setEmail(user.getEmail());
+		}
 		
 		// 회원수정 함수 종료 >> 서비스 종료 >> 트랜잭션 종료 >> 자동 commit : 영속화된 객체의 변화가 감지되면 (더티체킹) DB에 UPDATE문 날림
 		
+	}
+
+	@Transactional
+	public User 회원찾기(String username) {
+		User user = userRepository.findByUsername(username).orElseGet(()->{ // 없으면 
+			return new User(); // 리턴
+		});
+		return user;
 	}
 
 	/*

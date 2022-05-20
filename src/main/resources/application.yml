@@ -37,3 +37,6 @@ spring:
   devtools:
     restart:
       enabled: false
+      
+gom:
+  key: gom1234     
