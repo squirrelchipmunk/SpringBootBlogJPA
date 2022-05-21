@@ -9,16 +9,32 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
+@SequenceGenerator(
+		name= "REPLY_SEQ"						// 생성기 이름
+		,sequenceName = "REPLY_SEQ"	    // 시퀀스 이름
+		,initialValue = 1							// 초기값
+		,allocationSize = 1						// 증가값
+	)
 public class Reply {
 
 	/* 테이블 생성 */
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "REPLY_SEQ")
 	private int id;
 
 	@Column(nullable = false, length = 200)
@@ -35,67 +51,5 @@ public class Reply {
 	@CreationTimestamp
 	private Timestamp createDate;
 
-	
-	
-	/* 생성자 게터 세터 */
-	
-	public Reply() {
-		super();
-	}
-
-	public Reply(int id, String content, Board board, User user, Timestamp createDate) {
-		super();
-		this.id = id;
-		this.content = content;
-		this.board = board;
-		this.user = user;
-		this.createDate = createDate;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public Board getBoard() {
-		return board;
-	}
-
-	public void setBoard(Board board) {
-		this.board = board;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Timestamp getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Timestamp createDate) {
-		this.createDate = createDate;
-	}
-
-	@Override
-	public String toString() {
-		return "Reply [id=" + id + ", content=" + content + ", board=" + board + ", user=" + user + ", createDate="
-				+ createDate + "]";
-	}
 
 }

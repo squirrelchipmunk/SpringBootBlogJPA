@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -25,12 +26,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity(name = "users")
+@SequenceGenerator(
+			name= "USER_SEQ"						// 생성기 이름
+			,sequenceName = "USER_SEQ"	    // 시퀀스 이름
+			,initialValue = 1							// 초기값
+			,allocationSize = 1						// 증가값
+		)
 public class User {
 
 	/* 테이블 생성 */
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO) // 프로젝트에서 연결된 DB의 넘버링 전략 >> 오라클 : 시퀀스, mysql : auto increment
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_SEQ") // 프로젝트에서 연결된 DB의 넘버링 전략 >> 오라클 : 시퀀스, mysql : auto increment
 	private int id; // 시퀀스 
 
 	@Column(nullable = false, length = 200, unique=true)
