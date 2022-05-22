@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.exam.blog.model.Board;
+import com.exam.blog.model.Reply;
 import com.exam.blog.model.User;
 import com.exam.blog.repository.BoardRepository;
+import com.exam.blog.repository.ReplyRepository;
 
 // 스프링이 컴포넌트 스캔을 통해서 Bean에 등록해줌. >> IoC
 @Service 
@@ -16,6 +18,9 @@ public class BoardService {
 
 	@Autowired
 	private BoardRepository boardRepository;
+	
+	@Autowired
+	private ReplyRepository replyRepository;
 	
 	// 전체가 트랜잭션으로 묶여 원자성 유지됨. 프록시 객체가 생성되어 자동으로 commit 또는 rollback. isolation 옵션으로 격리 수준 설정 가능.
 	@Transactional
@@ -53,6 +58,19 @@ public class BoardService {
 		board.setTitle(requestBoard.getTitle());
 		board.setContent(requestBoard.getContent());
 		// 해당 함수 종료 시 (service 종료) 트랜잭션이 종료 > 더티체킹 - 자동 업데이트(db flush)
+	}
+
+	@Transactional
+	public void 댓글쓰기(Reply requestReply, User user, int boardId) {
+		// 댓글 객체 완성해서 save
+		requestReply.setUser(user);
+		
+		Board board = boardRepository.findById(boardId).orElseThrow(()->{
+			return new IllegalArgumentException("댓글 쓰기 실패 : 게시글 ID를 찾을 수 없습니다.");
+		});
+		requestReply.setBoard(board);
+		
+		replyRepository.save(requestReply);
 	}
 
 	/*

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.exam.blog.config.auth.PrincipalDetail;
 import com.exam.blog.dto.ResponseDto;
 import com.exam.blog.model.Board;
+import com.exam.blog.model.Reply;
 import com.exam.blog.service.BoardService;
 
 @RestController
@@ -21,7 +22,6 @@ public class BoardApiController {
 	
 	@Autowired
 	private BoardService boardService;
-	
 	
 	
 	@PostMapping("/api/board")
@@ -44,6 +44,14 @@ public class BoardApiController {
 		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 	}
 	
+	
+	@PostMapping("/api/board/{boardId}/reply")
+	public ResponseDto<Integer> replySave(@RequestBody Reply reply,
+															@AuthenticationPrincipal PrincipalDetail principal, 
+															@PathVariable int boardId) {
+		boardService.댓글쓰기(reply, principal.getUser(), boardId);
+		return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+	}
 	
 	/*
 	@PostMapping("/api/user/login")

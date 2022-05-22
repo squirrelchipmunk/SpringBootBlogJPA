@@ -13,9 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -64,6 +64,7 @@ public class Board {
 	
 	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
 	@JsonIgnoreProperties({"board"}) // Reply 안에서 board의 getter 호출을 무시 > 무한참조 방지!   !!getter 주의!!
+	@OrderBy("id desc")
 	private List<Reply> replys;
 
 	@CreationTimestamp

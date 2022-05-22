@@ -9,6 +9,9 @@ let index = {
 		$('#btn-update').on('click',()=>{  // ()=>{} this를 바인딩하기 위해서 사용
 			this.update();
 		});
+		$('#btn-reply-save').on('click',()=>{  // ()=>{} this를 바인딩하기 위해서 사용
+			this.replySave();
+		});
 	},
 	save:function() {
 		let data = {
@@ -70,7 +73,29 @@ let index = {
 		}).fail(function(err){
 			alert(JSON.stringify(err));
 		});
+	},
+	
+	replySave:function() {
+		let data = {
+			content:$('#reply-content').val()
+		};
+		
+		let boardId = $('#boardId').val();
+	
+		$.ajax({
+			type: 'post',
+			url: '/api/board/'+boardId+'/reply',
+			data: JSON.stringify(data),
+			contentType: 'application/json; charset=utf-8',
+			dataType:'json' 
+		}).done(function(resp){
+			alert('댓글 작성 완료');
+			location.href= '/board/'+boardId;
+		}).fail(function(err){
+			alert(JSON.stringify(err));
+		}); 
 	}
+	
 }
 
 index.init();
