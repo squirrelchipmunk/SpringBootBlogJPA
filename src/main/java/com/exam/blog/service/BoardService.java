@@ -62,15 +62,22 @@ public class BoardService {
 
 	@Transactional
 	public void 댓글쓰기(Reply requestReply, User user, int boardId) {
-		// 댓글 객체 완성해서 save
-		requestReply.setUser(user);
+
+		/* Repository @Query 사용 */
+		replyRepository.mSave(user.getId(), requestReply.getContent(), boardId);
 		
+		
+		/* 댓글 객체 완성해서 save >> 영속화 필요한 방법 */
+		
+		/*
+		requestReply.setUser(user);
 		Board board = boardRepository.findById(boardId).orElseThrow(()->{
 			return new IllegalArgumentException("댓글 쓰기 실패 : 게시글 ID를 찾을 수 없습니다.");
 		});
 		requestReply.setBoard(board);
 		
 		replyRepository.save(requestReply);
+		*/
 	}
 
 	/*
