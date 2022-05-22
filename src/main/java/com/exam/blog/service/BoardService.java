@@ -1,6 +1,5 @@
 package com.exam.blog.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -12,15 +11,30 @@ import com.exam.blog.model.User;
 import com.exam.blog.repository.BoardRepository;
 import com.exam.blog.repository.ReplyRepository;
 
+import lombok.RequiredArgsConstructor;
+
 // 스프링이 컴포넌트 스캔을 통해서 Bean에 등록해줌. >> IoC
 @Service 
+@RequiredArgsConstructor
 public class BoardService {
 
+	private final BoardRepository boardRepository;
+	private final ReplyRepository replyRepository;
+	
+	
+	/*
+	 
 	@Autowired
 	private BoardRepository boardRepository;
-	
 	@Autowired
 	private ReplyRepository replyRepository;
+	
+	public BoardService (BoardRepository boardRepository, ReplyRepository replyRepository){
+		this.boardRepository = boardRepository;
+		this.replyRepository = replyRepository;
+	}
+	
+	*/
 	
 	// 전체가 트랜잭션으로 묶여 원자성 유지됨. 프록시 객체가 생성되어 자동으로 commit 또는 rollback. isolation 옵션으로 격리 수준 설정 가능.
 	@Transactional

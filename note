@@ -10,3 +10,13 @@ OAuth 2.0
 Spring 공식 OAuth 주체 : Facebook, Google
 OAuth-Client 라이브러리로 인증, 권한처리 가능
 
+
+
+
+
+@Autowired 원리
+: 스프링이 시작될 때 컴포넌트 스캔하여 IoC 컨테이너에 빈(객체) 등록 ( 생성자를 호출하여 new() )
+
+
+IoC > 객체의 제어권을 스프링(컨테이너)이 가지고 있음
+컨체이너 > 인스턴스의 생명 주기를 관리
