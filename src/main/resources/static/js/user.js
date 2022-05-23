@@ -30,7 +30,7 @@ let index = {
 			}
 			else{
 				alert('회원가입 완료');
-				/*location.href='/';*/
+				location.href='/';
 			}
 			
 		}).fail(function(err){
