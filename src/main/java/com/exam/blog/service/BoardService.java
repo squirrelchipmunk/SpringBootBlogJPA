@@ -94,6 +94,13 @@ public class BoardService {
 		*/
 	}
 
+	
+	@Transactional
+	public void 댓글삭제(int replyId) {
+		replyRepository.deleteById(replyId);
+	}
+	
+	
 	/*
 	@Transactional(readOnly = true) // select 할 때 트랜잭션 시작, 서비스 종료시 트랜잭션 종료 ( 정합성 유지 )
 	public User 로그인(User user) {
