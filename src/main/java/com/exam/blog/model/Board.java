@@ -3,6 +3,7 @@ package com.exam.blog.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -56,13 +57,14 @@ public class Board {
 	@ManyToOne(fetch = FetchType.EAGER) 
 	@JoinColumn(name = "userId") // FK 필드 : userId
 	private User user; // db는 오브젝트를 저장할 수 없고 FK 사용.
-						// jpa orm에서는 가능.
+						     // jpa orm에서는 가능.
 	
-														// mappedBy = 필드명     (Reply 클래스의 필드명)
-														// mappedBy 연관관계의 주인이 아니다 >> DB에 컬럼을 만들지 않는다
-														// fetch = FetchType.LAZY  : 필요하면 가져온다
 	
-	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
+	// mappedBy = 필드명     (Reply 클래스의 필드명)
+	// mappedBy 연관관계의 주인이 아니다 >> DB에 컬럼을 만들지 않는다
+	// fetch = FetchType.LAZY  : 필요하면 가져온다
+	
+	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE) // remove : board를 지울 때 reply 같이 지우기, persist : 연관관계의 주인이 아닌 필드를 같이 save 할 수 있음
 	@JsonIgnoreProperties({"board"}) // Reply 안에서 board의 getter 호출을 무시 > 무한참조 방지!   !!getter 주의!!
 	@OrderBy("id desc")
 	private List<Reply> replys;

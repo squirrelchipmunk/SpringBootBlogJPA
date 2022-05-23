@@ -25,9 +25,14 @@ let index = {
 			contentType: 'application/json; charset=utf-8', // body 데이터 타입(MIME)
 			dataType:'json' //응답 데이터 json > 자바스크립트 객체로 변경. default json이므로 생략 가능!
 		}).done(function(resp){
-			//성공 시 실행
-			alert('회원가입 완료');
-			location.href='/';
+			if(resp.status === 500){
+				alert('회원가입에 실패했습니다.')
+			}
+			else{
+				alert('회원가입 완료');
+				location.href='/';
+			}
+			
 		}).fail(function(err){
 			//실패 시 실행
 			alert(JSON.stringify(err));
